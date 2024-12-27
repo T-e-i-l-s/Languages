@@ -53,6 +53,7 @@ dependencies {
     // AndroidX core and lifecycle
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     // Compose dependencies
     implementation(libs.androidx.activity.compose)
