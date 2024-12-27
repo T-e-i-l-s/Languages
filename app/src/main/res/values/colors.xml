@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Background Fill  -->
+    <color name="background">#FFFFFF</color>
+    <color name="secondary_background">#F0F0F0</color>
+
+    <!--  Content Colors  -->
+    <color name="content">#141414</color>
+    <color name="additional">#2BA3FF</color>
+    <color name="red">#ED4747</color>
+    <color name="gray">#7C7C7C</color>
+</resources>
