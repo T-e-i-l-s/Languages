@@ -19,9 +19,9 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import com.mustafin.languages.R
 
-/* Функция с кастомной реализацией кнопки */
+/* Функция с реализацией маленькой кнопки */
 @Composable
-fun CustomButton(
+fun TinyButton(
     text: String,
     modifier: Modifier = Modifier,
     containerColor: Color = colorResource(id = R.color.additional),
@@ -33,7 +33,7 @@ fun CustomButton(
     Button(
         onClick = onCLick,
         modifier = modifier,
-        contentPadding = PaddingValues(16.dp),
+        contentPadding = PaddingValues(vertical = 4.dp, horizontal = 12.dp),
         enabled = isEnabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
@@ -56,13 +56,13 @@ fun CustomButton(
         Text(
             text = text,
             color = contentColor,
-            style = MaterialTheme.typography.labelMedium
+            style = MaterialTheme.typography.labelSmall
         )
     }
 }
 
 @Preview
 @Composable
-private fun CustomButtonPreview() {
-    CustomButton(text = LoremIpsum(2).values.first()) {}
+private fun TinyButtonPreview() {
+    TinyButton(text = LoremIpsum(2).values.first()) {}
 }
