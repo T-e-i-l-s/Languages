@@ -5,8 +5,8 @@ import com.mustafin.languages.mainFlow.data.repositories.languagesRepository.Lan
 import com.mustafin.languages.mainFlow.data.repositories.languagesRepository.LanguagesRepositoryImpl
 import com.mustafin.languages.mainFlow.data.repositories.sessionInfoRepository.SessionInfoRepository
 import com.mustafin.languages.mainFlow.data.repositories.sessionInfoRepository.SessionInfoRepositoryImpl
-import com.mustafin.languages.mainFlow.data.source.local.LanguagesSource
-import com.mustafin.languages.mainFlow.data.source.local.SessionInfoPrefs
+import com.mustafin.languages.mainFlow.data.source.local.languagesSource.LanguagesSource
+import com.mustafin.languages.mainFlow.data.source.local.sessionsInfoPrefs.SessionInfoPrefs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

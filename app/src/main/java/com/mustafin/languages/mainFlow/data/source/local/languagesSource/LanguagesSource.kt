@@ -1,7 +1,7 @@
-package com.mustafin.languages.mainFlow.data.source.local
+package com.mustafin.languages.mainFlow.data.source.local.languagesSource
 
 import com.mustafin.languages.R
-import com.mustafin.languages.core.utils.langageUtils.LanguageModel
+import com.mustafin.languages.core.utils.languageUtils.LanguageModel
 
 /* Класс со списком всех языков в приложении */
 class LanguagesSource {
@@ -12,7 +12,7 @@ class LanguagesSource {
             R.drawable.russian
         ),
         LanguageModel(
-            0,
+            1,
             "Татарский",
             R.drawable.tatar
         )

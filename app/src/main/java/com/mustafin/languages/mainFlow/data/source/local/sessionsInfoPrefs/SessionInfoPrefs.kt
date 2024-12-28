@@ -1,4 +1,4 @@
-package com.mustafin.languages.mainFlow.data.source.local
+package com.mustafin.languages.mainFlow.data.source.local.sessionsInfoPrefs
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
