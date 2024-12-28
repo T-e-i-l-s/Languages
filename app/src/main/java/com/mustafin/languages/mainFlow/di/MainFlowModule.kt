@@ -1,4 +1,4 @@
-package com.mustafin.languages.mainFlow.data.di
+package com.mustafin.languages.mainFlow.di
 
 import android.content.SharedPreferences
 import com.mustafin.languages.mainFlow.data.repositories.SessionInfoRepository
