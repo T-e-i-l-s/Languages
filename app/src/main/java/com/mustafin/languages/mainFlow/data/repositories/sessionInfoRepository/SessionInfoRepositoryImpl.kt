@@ -1,4 +1,4 @@
-package com.mustafin.languages.mainFlow.data.repositories
+package com.mustafin.languages.mainFlow.data.repositories.sessionInfoRepository
 
 import com.mustafin.languages.core.utils.sessionUtils.SessionInfo
 

@@ -1,8 +1,11 @@
 package com.mustafin.languages.mainFlow.di
 
 import android.content.SharedPreferences
-import com.mustafin.languages.mainFlow.data.repositories.SessionInfoRepository
-import com.mustafin.languages.mainFlow.data.repositories.SessionInfoRepositoryImpl
+import com.mustafin.languages.mainFlow.data.repositories.languagesRepository.LanguagesRepository
+import com.mustafin.languages.mainFlow.data.repositories.languagesRepository.LanguagesRepositoryImpl
+import com.mustafin.languages.mainFlow.data.repositories.sessionInfoRepository.SessionInfoRepository
+import com.mustafin.languages.mainFlow.data.repositories.sessionInfoRepository.SessionInfoRepositoryImpl
+import com.mustafin.languages.mainFlow.data.source.local.LanguagesSource
 import com.mustafin.languages.mainFlow.data.source.local.SessionInfoPrefs
 import dagger.Module
 import dagger.Provides
@@ -23,5 +26,17 @@ object MainFlowModule {
     @Singleton
     fun provideSessionInfoRepository(): SessionInfoRepository {
         return SessionInfoRepositoryImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLanguagesSource(): LanguagesSource {
+        return LanguagesSource()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLanguagesRepository(languagesSource: LanguagesSource): LanguagesRepository {
+        return LanguagesRepositoryImpl(languagesSource)
     }
 }
