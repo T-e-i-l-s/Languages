@@ -2,23 +2,24 @@ package com.mustafin.languages.mainFlow.data.source.local.languagesSource
 
 import com.mustafin.languages.R
 import com.mustafin.languages.core.utils.languageUtils.LanguageModel
+import com.mustafin.languages.core.utils.languageUtils.ShortLanguageModel
 
 /* Класс со списком всех языков в приложении */
 class LanguagesSource {
     private val languages = listOf(
-        LanguageModel(
+        ShortLanguageModel(
             0,
             "Русский",
             R.drawable.russian
         ),
-        LanguageModel(
+        ShortLanguageModel(
             1,
             "Татарский",
             R.drawable.tatar
         )
     )
 
-    fun getLanguages(): List<LanguageModel> {
+    fun getLanguages(): List<ShortLanguageModel> {
         return languages
     }
 }

@@ -4,7 +4,7 @@ import com.mustafin.languages.core.utils.languageUtils.LanguageModel
 import com.mustafin.languages.core.utils.lessonUtils.ShortLessonModel
 
 /* Класс со списком уроков */
-class LessonsSourceSource {
+class LessonsSource {
     private val languagesFullInfo = listOf(
         LanguageModel(
             0,
@@ -28,7 +28,7 @@ class LessonsSourceSource {
         )
     )
 
-    fun getLessons(requiredLanguageId: Int): List<ShortLessonModel> {
+    fun getLessonsByLanguageId(requiredLanguageId: Int): List<ShortLessonModel> {
         for (languageInfo in languagesFullInfo) {
             if (languageInfo.id == requiredLanguageId) {
                 return languageInfo.lessons
