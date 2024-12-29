@@ -32,8 +32,7 @@ class LessonContentSource {
                             LoremIpsum(1).values.first(),
                             LoremIpsum(1).values.first()
                         ),
-                        0,
-                        LoremIpsum(1).values.first(),
+                        0
                     )
                 )
             )

@@ -17,13 +17,18 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.mustafin.languages.R
+import com.mustafin.languages.core.ui.navigation.LessonScreen
 import com.mustafin.languages.mainFlow.ui.screens.homeScreen.views.LessonView
 import com.mustafin.languages.mainFlow.ui.screens.homeScreen.views.header.HomeScreenHeader
 
 /* Главный экран приложения */
 @Composable
-fun HomeScreen(viewModel: HomeScreenViewModel = hiltViewModel()) {
+fun HomeScreenView(
+    navController: NavController,
+    viewModel: HomeScreenViewModel = hiltViewModel()
+) {
     val loadingState by viewModel.loadingState.collectAsStateWithLifecycle()
     val language by viewModel.language.collectAsStateWithLifecycle()
     val lessons by viewModel.lessons.collectAsStateWithLifecycle()
@@ -43,11 +48,13 @@ fun HomeScreen(viewModel: HomeScreenViewModel = hiltViewModel()) {
                 HomeScreenHeader(language = lang)
             }
         }
-        
-        items(lessons) {
-            LessonView(lesson = it)
+
+        items(lessons) { lesson ->
+            LessonView(lesson = lesson) {
+                lessonId -> navController.navigate(LessonScreen(lessonId))
+            }
         }
-        
+
         item {
             Spacer(modifier = Modifier.navigationBarsPadding())
         }

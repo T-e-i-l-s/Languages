@@ -5,7 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.mustafin.languages.mainFlow.ui.screens.homeScreen.HomeScreen
+import com.mustafin.languages.lessonFlow.ui.screens.lessonScreen.LessonScreenView
+import com.mustafin.languages.mainFlow.ui.screens.homeScreen.HomeScreenView
 import kotlinx.serialization.Serializable
 
 /* Экраны приложения */
@@ -19,11 +20,12 @@ fun NavGraph() {
 
     NavHost(navController = navController, startDestination = HomeScreen) {
         composable<HomeScreen> {
-            HomeScreen()
+            HomeScreenView(navController)
         }
 
         composable<LessonScreen> {
-            val lessonId = it.toRoute<LessonScreen>()
+            val args = it.toRoute<LessonScreen>()
+            LessonScreenView(navController = navController, lessonId = args.lessonId)
         }
     }
 }

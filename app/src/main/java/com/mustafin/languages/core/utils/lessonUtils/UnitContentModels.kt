@@ -14,6 +14,5 @@ data class InformationUnitModel(
 data class QuizUnitModel(
     val question: String,
     val variants: List<String>,
-    val correctVariantIndex: Int,
-    val buttonText: String
+    val correctVariantIndex: Int
 ): UnitContentModel

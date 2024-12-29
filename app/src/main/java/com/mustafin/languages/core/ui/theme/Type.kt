@@ -9,10 +9,10 @@ import androidx.compose.ui.unit.sp
 import com.mustafin.languages.R
 
 val Typography = Typography(
-    displayLarge = TextStyle(
-        fontFamily = FontFamily(Font(R.font.pacifico, FontWeight.Bold)),
+    titleLarge = TextStyle(
+        fontFamily = FontFamily(Font(R.font.geologica)),
         fontWeight = FontWeight.ExtraBold,
-        fontSize = 44.sp
+        fontSize = 24.sp
     ),
 
     titleMedium = TextStyle(

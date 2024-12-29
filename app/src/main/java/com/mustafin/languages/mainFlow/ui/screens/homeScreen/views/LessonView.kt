@@ -27,7 +27,7 @@ import com.mustafin.languages.core.utils.lessonUtils.ShortLessonModel
 
 /* View блока с краткой информацией о уроке */
 @Composable
-fun LessonView(lesson: ShortLessonModel) {
+fun LessonView(lesson: ShortLessonModel, startLesson: (Int) -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -69,7 +69,7 @@ fun LessonView(lesson: ShortLessonModel) {
                 true -> colorResource(id = R.color.content)
                 false -> colorResource(id = R.color.additional)
             }
-        ) {}
+        ) { startLesson(lesson.id) }
     }
 }
 
@@ -83,7 +83,7 @@ private fun LessonViewPreview() {
                 LoremIpsum(3).values.first(),
                 true
             )
-        )
+        ) {}
 
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -93,6 +93,6 @@ private fun LessonViewPreview() {
                 LoremIpsum(3).values.first(),
                 false
             )
-        )
+        ) {}
     }
 }
