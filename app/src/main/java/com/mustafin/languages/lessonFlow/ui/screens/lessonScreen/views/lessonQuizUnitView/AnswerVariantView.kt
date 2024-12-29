@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -38,8 +39,12 @@ fun AnswerVariantView(text: String, status: AnswerStatus, onClick: () -> Unit) {
                 RoundedCornerShape(12.dp)
             )
             .alpha(if (status == AnswerStatus.DEFAULT_CHECKED) 0.5f else 1f)
-            .padding(12.dp)
+            .padding(24.dp),
     ) {
-        Text(text = text, style = MaterialTheme.typography.labelMedium)
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.align(Alignment.Center)
+        )
     }
 }

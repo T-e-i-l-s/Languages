@@ -35,7 +35,7 @@ class LessonScreenViewModel @Inject constructor(
         _lesson.value?.let { lesson ->
             viewModelScope.launch {
                 if (lesson.stages[_currentUnitIndex.value].type == LessonUnitType.QUIZ) {
-                    delay(1000)
+                    delay(2000)
                 }
 
                 if (_currentUnitIndex.value < lesson.stages.size - 1) {

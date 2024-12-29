@@ -1,5 +1,8 @@
 package com.mustafin.languages.lessonFlow.ui.screens.lessonScreen
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +11,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,8 +29,13 @@ import com.mustafin.languages.core.utils.lessonUtils.LessonUnitType
 import com.mustafin.languages.core.utils.lessonUtils.QuizUnitModel
 import com.mustafin.languages.lessonFlow.ui.screens.lessonScreen.views.LessonInformationUnitView
 import com.mustafin.languages.lessonFlow.ui.screens.lessonScreen.views.lessonQuizUnitView.LessonQuizUnitView
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /* Экран прохождения урока */
+@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun LessonScreenView(
     navController: NavController,
@@ -31,6 +45,17 @@ fun LessonScreenView(
     val lesson = viewModel.lesson.collectAsStateWithLifecycle()
     val currentUnitIndex = viewModel.currentUnitIndex.collectAsStateWithLifecycle()
 
+    val greenColor = colorResource(id = R.color.green)
+    val redColor = colorResource(id = R.color.red)
+    val additionalColor = colorResource(id = R.color.additional)
+
+    var gradientColorValue by remember { mutableStateOf(additionalColor) }
+    val gradientColor by animateColorAsState(
+        targetValue = gradientColorValue,
+        animationSpec = tween(900),
+        label = ""
+    )
+
     LaunchedEffect(Unit) {
         viewModel.loadLessonData(lessonId)
     }
@@ -38,7 +63,15 @@ fun LessonScreenView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(id = R.color.background))
+            .background(
+                Brush.verticalGradient(
+                    listOf(
+                        gradientColor.copy(alpha = 0.7f),
+                        colorResource(id = R.color.background)
+                    ),
+                    startY = -5f * 1000
+                )
+            )
             .padding(12.dp)
             .statusBarsPadding()
             .navigationBarsPadding()
@@ -59,7 +92,14 @@ fun LessonScreenView(
                     val unitContent = (stage.content as QuizUnitModel)
                     LessonQuizUnitView(
                         content = unitContent,
-                        onAnswer = { viewModel.openNextUnit(navController) }
+                        onAnswer = { isCorrect ->
+                            GlobalScope.launch {
+                                gradientColorValue = if (isCorrect) greenColor else redColor
+                                delay(1100)
+                                gradientColorValue = additionalColor
+                            }
+                            viewModel.openNextUnit(navController)
+                        }
                     )
                 }
             }

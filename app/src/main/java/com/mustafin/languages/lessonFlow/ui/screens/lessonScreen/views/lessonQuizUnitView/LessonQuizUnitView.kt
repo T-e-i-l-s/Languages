@@ -1,12 +1,15 @@
 package com.mustafin.languages.lessonFlow.ui.screens.lessonScreen.views.lessonQuizUnitView
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -18,18 +21,22 @@ import com.mustafin.languages.core.utils.quizUtils.AnswerStatus
 fun LessonQuizUnitView(
     content: QuizUnitModel,
     viewModel: LessonQuizUnitViewModel = viewModel(),
-    onAnswer: () -> Unit
+    onAnswer: (Boolean) -> Unit
 ) {
     val selectedAnswerIndex = viewModel.selectedAnswerIndex.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = content.question,
-            style = MaterialTheme.typography.titleMedium
-        )
+        Box(modifier = Modifier.weight(1f)) {
+            Text(
+                text = content.question,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.align(Alignment.Center),
+            )
+        }
 
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             content.variants.forEachIndexed { index, variant ->
@@ -44,7 +51,7 @@ fun LessonQuizUnitView(
                 ) {
                     if (selectedAnswerIndex.value != null) return@AnswerVariantView
                     viewModel.selectAnswer(index)
-                    onAnswer()
+                    onAnswer(index == content.correctVariantIndex)
                 }
             }
         }
