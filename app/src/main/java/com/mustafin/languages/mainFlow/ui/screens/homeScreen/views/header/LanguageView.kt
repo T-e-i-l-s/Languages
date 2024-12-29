@@ -29,7 +29,7 @@ fun LanguageView(language: ShortLanguageModel) {
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp))
             .background(colorResource(id = R.color.secondary_background))
-            .padding(vertical = 8.dp, horizontal = 12.dp),
+            .padding(vertical = 8.dp, horizontal = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
@@ -40,7 +40,7 @@ fun LanguageView(language: ShortLanguageModel) {
                 .clip(CircleShape)
         )
 
-        Spacer(modifier = Modifier.width(12.dp))
+        Spacer(modifier = Modifier.width(10.dp))
 
         Text(
             text = language.name,

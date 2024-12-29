@@ -11,26 +11,31 @@ import com.mustafin.languages.R
 val Typography = Typography(
     displayLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.pacifico, FontWeight.Bold)),
+        fontWeight = FontWeight.ExtraBold,
         fontSize = 44.sp
     ),
 
     titleMedium = TextStyle(
-        fontFamily = FontFamily(Font(R.font.montserrat, FontWeight.SemiBold)),
+        fontFamily = FontFamily(Font(R.font.geologica)),
+        fontWeight = FontWeight.ExtraBold,
         fontSize = 20.sp
     ),
 
     titleSmall = TextStyle(
-        fontFamily = FontFamily(Font(R.font.montserrat, FontWeight.SemiBold)),
+        fontFamily = FontFamily(Font(R.font.geologica)),
+        fontWeight = FontWeight.ExtraBold,
         fontSize = 16.sp
     ),
 
     labelMedium = TextStyle(
-        fontFamily = FontFamily(Font(R.font.montserrat, FontWeight.Medium)),
+        fontFamily = FontFamily(Font(R.font.geologica)),
+        fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     ),
 
     labelSmall = TextStyle(
-        fontFamily = FontFamily(Font(R.font.montserrat, FontWeight.Medium)),
+        fontFamily = FontFamily(Font(R.font.geologica)),
+        fontWeight = FontWeight.Light,
         fontSize = 12.sp
     )
 )

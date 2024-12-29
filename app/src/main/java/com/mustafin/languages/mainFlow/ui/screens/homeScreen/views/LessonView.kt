@@ -14,9 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.mustafin.languages.R
 import com.mustafin.languages.core.ui.customComponents.buttons.TinyButton
 import com.mustafin.languages.core.utils.lessonUtils.ShortLessonModel
@@ -29,7 +33,7 @@ fun LessonView(lesson: ShortLessonModel) {
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(colorResource(id = R.color.secondary_background))
-            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .padding(8.dp)
     ) {
         Text(
             text = lesson.name,
