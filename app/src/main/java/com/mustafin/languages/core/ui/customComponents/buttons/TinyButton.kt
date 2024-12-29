@@ -34,9 +34,8 @@ fun TinyButton(
 ) {
     Button(
         onClick = onCLick,
-        modifier = modifier.height(24.dp),
-        contentPadding = PaddingValues(vertical = 0.dp, horizontal = 8.dp),
-        shape = RoundedCornerShape(8.dp),
+        modifier = modifier,
+        contentPadding = PaddingValues(horizontal = 12.dp),
         enabled = isEnabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,

@@ -21,7 +21,7 @@ fun LessonInformationUnitView(content: InformationUnitModel, onButtonClick: () -
         Column {
             Text(
                 text = content.title,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleMedium
             )
             Text(
                 text = content.text,

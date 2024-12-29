@@ -14,13 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.mustafin.languages.R
 import com.mustafin.languages.core.ui.customComponents.buttons.TinyButton
 import com.mustafin.languages.core.utils.lessonUtils.ShortLessonModel
@@ -39,6 +35,8 @@ fun LessonView(lesson: ShortLessonModel, startLesson: (Int) -> Unit) {
             text = lesson.name,
             style = MaterialTheme.typography.titleSmall
         )
+
+        Spacer(modifier = Modifier.height(4.dp))
 
         when (lesson.done) {
             true -> {
@@ -65,10 +63,7 @@ fun LessonView(lesson: ShortLessonModel, startLesson: (Int) -> Unit) {
                 true -> stringResource(id = R.string.start_lesson_again)
                 false -> stringResource(id = R.string.start_lesson)
             },
-            containerColor = when (lesson.done) {
-                true -> colorResource(id = R.color.content)
-                false -> colorResource(id = R.color.additional)
-            }
+            containerColor = colorResource(id = R.color.additional)
         ) { startLesson(lesson.id) }
     }
 }

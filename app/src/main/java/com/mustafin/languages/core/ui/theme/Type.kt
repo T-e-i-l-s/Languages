@@ -12,30 +12,30 @@ val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.geologica)),
         fontWeight = FontWeight.ExtraBold,
-        fontSize = 24.sp
+        fontSize = 28.sp
     ),
 
     titleMedium = TextStyle(
         fontFamily = FontFamily(Font(R.font.geologica)),
         fontWeight = FontWeight.ExtraBold,
-        fontSize = 20.sp
+        fontSize = 24.sp
     ),
 
     titleSmall = TextStyle(
         fontFamily = FontFamily(Font(R.font.geologica)),
         fontWeight = FontWeight.ExtraBold,
-        fontSize = 16.sp
+        fontSize = 20.sp
     ),
 
     labelMedium = TextStyle(
         fontFamily = FontFamily(Font(R.font.geologica)),
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp
     ),
 
     labelSmall = TextStyle(
         fontFamily = FontFamily(Font(R.font.geologica)),
-        fontWeight = FontWeight.Light,
-        fontSize = 12.sp
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp
     )
 )

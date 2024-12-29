@@ -3,7 +3,7 @@ package com.mustafin.languages.lessonFlow.ui.screens.lessonScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.mustafin.languages.core.ui.navigation.HomeScreen
+import com.mustafin.languages.core.ui.navigation.LessonCompletedScreen
 import com.mustafin.languages.core.utils.lessonUtils.LessonModel
 import com.mustafin.languages.core.utils.lessonUtils.LessonUnitType
 import com.mustafin.languages.lessonFlow.data.repositories.lessonContentRepository.LessonContentRepository
@@ -41,7 +41,7 @@ class LessonScreenViewModel @Inject constructor(
                 if (_currentUnitIndex.value < lesson.stages.size - 1) {
                     _currentUnitIndex.value++
                 } else {
-                    navController.navigate(HomeScreen)
+                    navController.navigate(LessonCompletedScreen)
                 }
             }
         }

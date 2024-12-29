@@ -6,4 +6,6 @@
     <string name="lesson_done">Сделано</string>
     <string name="start_lesson">Пройти урок</string>
     <string name="start_lesson_again">Пройти еще раз</string>
+    <string name="lesson_completed">Урок пройден!</string>
+    <string name="tap_to_continue">Нажмите чтобы продолжить</string>
 </resources>
