@@ -34,6 +34,30 @@ class LessonContentSource {
                         ),
                         0
                     )
+                ),
+                LessonUnitModel(
+                    LessonUnitType.QUIZ,
+                    QuizUnitModel(
+                        LoremIpsum(4).values.first(),
+                        listOf(
+                            LoremIpsum(1).values.first(),
+                            LoremIpsum(1).values.first(),
+                            LoremIpsum(1).values.first()
+                        ),
+                        0
+                    )
+                ),
+                LessonUnitModel(
+                    LessonUnitType.QUIZ,
+                    QuizUnitModel(
+                        LoremIpsum(4).values.first(),
+                        listOf(
+                            LoremIpsum(1).values.first(),
+                            LoremIpsum(1).values.first(),
+                            LoremIpsum(1).values.first()
+                        ),
+                        0
+                    )
                 )
             )
         )

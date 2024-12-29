@@ -21,7 +21,7 @@ import com.mustafin.languages.core.utils.quizUtils.AnswerStatus
 fun LessonQuizUnitView(
     content: QuizUnitModel,
     viewModel: LessonQuizUnitViewModel = viewModel(),
-    onAnswer: (Boolean) -> Unit
+    onAnswer: (Boolean, () -> Unit) -> Unit
 ) {
     val selectedAnswerIndex = viewModel.selectedAnswerIndex.collectAsStateWithLifecycle()
 
@@ -51,7 +51,9 @@ fun LessonQuizUnitView(
                 ) {
                     if (selectedAnswerIndex.value != null) return@AnswerVariantView
                     viewModel.selectAnswer(index)
-                    onAnswer(index == content.correctVariantIndex)
+                    onAnswer(index == content.correctVariantIndex) {
+                        viewModel.selectAnswer(null)
+                    }
                 }
             }
         }

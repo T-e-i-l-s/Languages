@@ -1,8 +1,11 @@
 package com.mustafin.languages.lessonFlow.ui.screens.lessonScreen
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -44,6 +47,7 @@ fun LessonScreenView(
 ) {
     val lesson = viewModel.lesson.collectAsStateWithLifecycle()
     val currentUnitIndex = viewModel.currentUnitIndex.collectAsStateWithLifecycle()
+    val contentVisible = viewModel.contentVisible.collectAsStateWithLifecycle()
 
     val greenColor = colorResource(id = R.color.green)
     val redColor = colorResource(id = R.color.red)
@@ -52,7 +56,7 @@ fun LessonScreenView(
     var gradientColorValue by remember { mutableStateOf(additionalColor) }
     val gradientColor by animateColorAsState(
         targetValue = gradientColorValue,
-        animationSpec = tween(900),
+        animationSpec = tween(600),
         label = ""
     )
 
@@ -79,28 +83,34 @@ fun LessonScreenView(
         lesson.value?.let {
             val stage = it.stages[currentUnitIndex.value]
 
-            when (stage.type) {
-                LessonUnitType.INFORMATION -> {
-                    val unitContent = (stage.content as InformationUnitModel)
-                    LessonInformationUnitView(
-                        content = unitContent,
-                        onButtonClick = { viewModel.openNextUnit(navController) }
-                    )
-                }
+            AnimatedVisibility(
+                visible = contentVisible.value,
+                enter = fadeIn(tween(500)),
+                exit = fadeOut(tween(500))
+            ) {
+                when (stage.type) {
+                    LessonUnitType.INFORMATION -> {
+                        val unitContent = (stage.content as InformationUnitModel)
+                        LessonInformationUnitView(
+                            content = unitContent,
+                            onButtonClick = { viewModel.openNextUnit(navController) }
+                        )
+                    }
 
-                LessonUnitType.QUIZ -> {
-                    val unitContent = (stage.content as QuizUnitModel)
-                    LessonQuizUnitView(
-                        content = unitContent,
-                        onAnswer = { isCorrect ->
-                            GlobalScope.launch {
-                                gradientColorValue = if (isCorrect) greenColor else redColor
-                                delay(1100)
-                                gradientColorValue = additionalColor
+                    LessonUnitType.QUIZ -> {
+                        val unitContent = (stage.content as QuizUnitModel)
+                        LessonQuizUnitView(
+                            content = unitContent,
+                            onAnswer = { isCorrect, resetSelection ->
+                                GlobalScope.launch {
+                                    gradientColorValue = if (isCorrect) greenColor else redColor
+                                    delay(900)
+                                    gradientColorValue = additionalColor
+                                    viewModel.openNextUnit(navController, resetSelection)
+                                }
                             }
-                            viewModel.openNextUnit(navController)
-                        }
-                    )
+                        )
+                    }
                 }
             }
         }

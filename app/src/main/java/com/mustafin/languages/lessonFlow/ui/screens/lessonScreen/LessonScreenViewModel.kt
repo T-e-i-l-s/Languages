@@ -25,21 +25,31 @@ class LessonScreenViewModel @Inject constructor(
     private val _currentUnitIndex = MutableStateFlow(0)
     val currentUnitIndex: StateFlow<Int> = _currentUnitIndex
 
+    private val _contentVisible = MutableStateFlow(true)
+    val contentVisible: StateFlow<Boolean> = _contentVisible
+
     fun loadLessonData(lessonId: Int) {
         viewModelScope.launch {
             _lesson.value = lessonContentRepository.getLessonContentById(lessonId)
         }
     }
 
-    fun openNextUnit(navController: NavController) {
+    fun openNextUnit(navController: NavController, resetSelection: () -> Unit = {}) {
         _lesson.value?.let { lesson ->
             viewModelScope.launch {
                 if (lesson.stages[_currentUnitIndex.value].type == LessonUnitType.QUIZ) {
-                    delay(2000)
+                    delay(200)
+                } else {
+                    delay(300)
                 }
 
+                _contentVisible.value = false
+
                 if (_currentUnitIndex.value < lesson.stages.size - 1) {
+                    delay(500)
+                    resetSelection()
                     _currentUnitIndex.value++
+                    _contentVisible.value = true
                 } else {
                     navController.navigate(LessonCompletedScreen)
                 }
