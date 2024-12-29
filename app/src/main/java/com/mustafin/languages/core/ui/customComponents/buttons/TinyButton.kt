@@ -2,8 +2,10 @@ package com.mustafin.languages.core.ui.customComponents.buttons
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -32,8 +34,9 @@ fun TinyButton(
 ) {
     Button(
         onClick = onCLick,
-        modifier = modifier,
-        contentPadding = PaddingValues(vertical = 4.dp, horizontal = 12.dp),
+        modifier = modifier.height(24.dp),
+        contentPadding = PaddingValues(vertical = 0.dp, horizontal = 8.dp),
+        shape = RoundedCornerShape(8.dp),
         enabled = isEnabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
