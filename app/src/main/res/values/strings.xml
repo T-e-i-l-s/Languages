@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Языки</string>
+
+    <!-- Главный экран -->
+    <string name="lesson_not_done">Не сделано</string>
+    <string name="lesson_done">Сделано</string>
+    <string name="start_lesson">Пройти урок</string>
+    <string name="start_lesson_again">Пройти еще раз</string>
 </resources>
