@@ -40,8 +40,8 @@ object MainFlowModule {
     // Repositories
     @Provides
     @Singleton
-    fun provideSessionInfoRepository(): SessionInfoRepository {
-        return SessionInfoRepositoryImpl()
+    fun provideSessionInfoRepository(sessionInfoPrefs: SessionInfoPrefs): SessionInfoRepository {
+        return SessionInfoRepositoryImpl(sessionInfoPrefs)
     }
     @Provides
     @Singleton

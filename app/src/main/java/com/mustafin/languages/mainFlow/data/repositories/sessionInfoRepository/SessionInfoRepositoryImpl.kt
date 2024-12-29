@@ -1,13 +1,17 @@
 package com.mustafin.languages.mainFlow.data.repositories.sessionInfoRepository
 
 import com.mustafin.languages.core.utils.sessionUtils.SessionInfo
+import com.mustafin.languages.mainFlow.data.source.local.sessionsInfoPrefs.SessionInfoPrefs
+import javax.inject.Inject
 
-class SessionInfoRepositoryImpl: SessionInfoRepository {
+class SessionInfoRepositoryImpl @Inject constructor(
+    private val sessionInfoPrefs: SessionInfoPrefs
+): SessionInfoRepository {
     override fun getSessionInfo(): SessionInfo {
-        TODO("Not yet implemented")
+        return sessionInfoPrefs.getSessionInfo()
     }
 
     override fun setSessionInfo(sessionInfo: SessionInfo) {
-        TODO("Not yet implemented")
+        sessionInfoPrefs.setSessionInfo(sessionInfo)
     }
 }

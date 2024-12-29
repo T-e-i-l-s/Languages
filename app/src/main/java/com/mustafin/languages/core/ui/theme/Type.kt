@@ -25,12 +25,12 @@ val Typography = Typography(
     ),
 
     labelMedium = TextStyle(
-        fontFamily = FontFamily(Font(R.font.montserrat, FontWeight.Normal)),
+        fontFamily = FontFamily(Font(R.font.montserrat, FontWeight.Medium)),
         fontSize = 16.sp
     ),
 
     labelSmall = TextStyle(
-        fontFamily = FontFamily(Font(R.font.montserrat, FontWeight.Normal)),
+        fontFamily = FontFamily(Font(R.font.montserrat, FontWeight.Medium)),
         fontSize = 12.sp
     )
 )
