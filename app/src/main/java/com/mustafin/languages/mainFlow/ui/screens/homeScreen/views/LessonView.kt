@@ -1,18 +1,26 @@
 package com.mustafin.languages.mainFlow.ui.screens.homeScreen.views
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
@@ -24,47 +32,46 @@ import com.mustafin.languages.core.utils.lessonUtils.ShortLessonModel
 /* View блока с краткой информацией о уроке */
 @Composable
 fun LessonView(lesson: ShortLessonModel, startLesson: (Int) -> Unit) {
-    Column(
+    Row(
         Modifier
-            .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(colorResource(id = R.color.secondary_background))
-            .padding(8.dp)
+            .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text = lesson.name,
-            style = MaterialTheme.typography.titleSmall
-        )
+        Column(
+            Modifier.weight(1f)
+        ) {
+            Text(
+                text = lesson.name,
+                style = MaterialTheme.typography.titleSmall
+            )
 
-        Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-        when (lesson.done) {
-            true -> {
-                Text(
-                    text = stringResource(id = R.string.lesson_done),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = colorResource(id = R.color.green)
+            TinyButton(
+                text = when (lesson.done) {
+                    true -> stringResource(id = R.string.start_lesson_again)
+                    false -> stringResource(id = R.string.start_lesson)
+                },
+                containerColor = Color.Transparent,
+                contentColor = colorResource(id = R.color.additional),
+                modifier = Modifier.border(
+                    2.dp,
+                    colorResource(id = R.color.additional),
+                    CircleShape
                 )
-            }
-
-            false -> {
-                Text(
-                    text = stringResource(id = R.string.lesson_not_done),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = colorResource(id = R.color.gray)
-                )
-            }
+            ) { startLesson(lesson.id) }
         }
 
-        Spacer(modifier = Modifier.height(4.dp))
-
-        TinyButton(
-            text = when (lesson.done) {
-                true -> stringResource(id = R.string.start_lesson_again)
-                false -> stringResource(id = R.string.start_lesson)
-            },
-            containerColor = colorResource(id = R.color.additional)
-        ) { startLesson(lesson.id) }
+        if (lesson.done) {
+            Icon(
+                painter = painterResource(id = R.drawable.check_icon2),
+                contentDescription = null,
+                tint = colorResource(id = R.color.green),
+                modifier = Modifier.size(40.dp)
+            )
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 package com.mustafin.languages.mainFlow.ui.screens.homeScreen.views.languageSelector
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -41,7 +42,8 @@ fun LanguageSelectorView(
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
-            state = listState
+            state = listState,
+            contentPadding = PaddingValues(horizontal = 12.dp)
         ) {
             items(it) { lang ->
                 LanguageView(
