@@ -2,7 +2,6 @@ package com.mustafin.languages.mainFlow.data.source.local.sessionsInfoPrefs
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.mustafin.languages.core.utils.sessionUtils.SessionInfo
 import javax.inject.Inject
 
 /* Класс для хранения данных о сессии(язык, который изучал пользователь) */
