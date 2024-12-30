@@ -7,23 +7,27 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mustafin.languages.core.utils.lessonUtils.QuizUnitModel
-import com.mustafin.languages.core.utils.quizUtils.AnswerStatus
+import com.mustafin.languages.core.utils.quizUtils.AnswerVariantViewStatus
 
 /* View ступени урока с тестом */
 @Composable
 fun LessonQuizUnitView(
     content: QuizUnitModel,
     viewModel: LessonQuizUnitViewModel = viewModel(),
-    onAnswer: (Boolean, () -> Unit) -> Unit
+    onAnswer: (Int) -> Unit
 ) {
     val selectedAnswerIndex = viewModel.selectedAnswerIndex.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.resetState()
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -40,20 +44,19 @@ fun LessonQuizUnitView(
 
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             content.variants.forEachIndexed { index, variant ->
+                val answerStatus = when {
+                    selectedAnswerIndex.value == null -> AnswerVariantViewStatus.DEFAULT_UNCHECKED
+                    index == content.correctVariantIndex -> AnswerVariantViewStatus.CORRECT
+                    index == selectedAnswerIndex.value -> AnswerVariantViewStatus.INCORRECT
+                    else -> AnswerVariantViewStatus.DEFAULT_CHECKED
+                }
+
                 AnswerVariantView(
                     text = variant,
-                    status = when {
-                        selectedAnswerIndex.value == null -> AnswerStatus.DEFAULT_UNCHECKED
-                        index == content.correctVariantIndex -> AnswerStatus.CORRECT
-                        index == selectedAnswerIndex.value -> AnswerStatus.INCORRECT
-                        else -> AnswerStatus.DEFAULT_CHECKED
-                    }
+                    status = answerStatus
                 ) {
-                    if (selectedAnswerIndex.value != null) return@AnswerVariantView
-                    viewModel.selectAnswer(index)
-                    onAnswer(index == content.correctVariantIndex) {
-                        viewModel.selectAnswer(null)
-                    }
+                    viewModel.onSelectAnswerClick(index)
+                    onAnswer(index)
                 }
             }
         }

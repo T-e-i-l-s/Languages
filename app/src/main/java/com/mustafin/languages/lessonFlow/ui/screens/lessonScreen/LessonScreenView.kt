@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +31,7 @@ import com.mustafin.languages.R
 import com.mustafin.languages.core.utils.lessonUtils.InformationUnitModel
 import com.mustafin.languages.core.utils.lessonUtils.LessonUnitType
 import com.mustafin.languages.core.utils.lessonUtils.QuizUnitModel
+import com.mustafin.languages.core.utils.quizUtils.AnswerStatus
 import com.mustafin.languages.lessonFlow.ui.screens.lessonScreen.views.LessonInformationUnitView
 import com.mustafin.languages.lessonFlow.ui.screens.lessonScreen.views.lessonQuizUnitView.LessonQuizUnitView
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -38,7 +40,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /* Экран прохождения урока */
-@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun LessonScreenView(
     navController: NavController,
@@ -48,16 +49,34 @@ fun LessonScreenView(
     val lesson = viewModel.lesson.collectAsStateWithLifecycle()
     val currentUnitIndex = viewModel.currentUnitIndex.collectAsStateWithLifecycle()
     val contentVisible = viewModel.contentVisible.collectAsStateWithLifecycle()
+    val quizAnswerStatus = viewModel.quizAnswerStatus.collectAsStateWithLifecycle()
 
+    // Цвета для градиента в фоне
     val greenColor = colorResource(id = R.color.green)
     val redColor = colorResource(id = R.color.red)
     val additionalColor = colorResource(id = R.color.additional)
 
-    var gradientColorValue by remember { mutableStateOf(additionalColor) }
+    // Настройки анимации цвета градиента
+    val gradientColorValue by remember(quizAnswerStatus.value) {
+        when (quizAnswerStatus.value) {
+            AnswerStatus.CORRECT -> mutableStateOf(greenColor)
+            AnswerStatus.INCORRECT -> mutableStateOf(redColor)
+            else -> mutableStateOf(additionalColor)
+        }
+    }
     val gradientColor by animateColorAsState(
         targetValue = gradientColorValue,
         animationSpec = tween(600),
         label = ""
+    )
+
+    // Градиент для фона экрана
+    val gradient = Brush.verticalGradient(
+        listOf(
+            gradientColor.copy(alpha = 0.7f),
+            colorResource(id = R.color.background)
+        ),
+        startY = -5000f
     )
 
     LaunchedEffect(Unit) {
@@ -67,49 +86,41 @@ fun LessonScreenView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    listOf(
-                        gradientColor.copy(alpha = 0.7f),
-                        colorResource(id = R.color.background)
-                    ),
-                    startY = -5f * 1000
-                )
-            )
+            .background(gradient)
             .padding(12.dp)
             .statusBarsPadding()
             .navigationBarsPadding()
     ) {
-        lesson.value?.let {
-            val stage = it.stages[currentUnitIndex.value]
+        lesson.value?.let { lesson ->
+            val unit = lesson.stages[currentUnitIndex.value]
 
             AnimatedVisibility(
                 visible = contentVisible.value,
-                enter = fadeIn(tween(500)),
-                exit = fadeOut(tween(500))
+                enter = fadeIn(tween(1000)),
+                exit = fadeOut(tween(500)),
             ) {
-                when (stage.type) {
-                    LessonUnitType.INFORMATION -> {
-                        val unitContent = (stage.content as InformationUnitModel)
-                        LessonInformationUnitView(
-                            content = unitContent,
-                            onButtonClick = { viewModel.openNextUnit(navController) }
-                        )
-                    }
+                key(currentUnitIndex.value) {
+                    when (unit.type) {
+                        LessonUnitType.INFORMATION -> {
+                            val unitContent = (unit.content as InformationUnitModel)
+                            LessonInformationUnitView(
+                                content = unitContent,
+                                onButtonClick = { viewModel.openNextUnit(navController) }
+                            )
+                        }
 
-                    LessonUnitType.QUIZ -> {
-                        val unitContent = (stage.content as QuizUnitModel)
-                        LessonQuizUnitView(
-                            content = unitContent,
-                            onAnswer = { isCorrect, resetSelection ->
-                                GlobalScope.launch {
-                                    gradientColorValue = if (isCorrect) greenColor else redColor
-                                    delay(900)
-                                    gradientColorValue = additionalColor
-                                    viewModel.openNextUnit(navController, resetSelection)
+                        LessonUnitType.QUIZ -> {
+                            val unitContent = (unit.content as QuizUnitModel)
+                            LessonQuizUnitView(
+                                content = unitContent,
+                                onAnswer = { selectedIndex ->
+                                    viewModel.onQuizAnswered(
+                                        navController,
+                                        unitContent.correctVariantIndex == selectedIndex,
+                                    )
                                 }
-                            }
-                        )
+                            )
+                        }
                     }
                 }
             }

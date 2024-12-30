@@ -29,7 +29,6 @@ fun HomeScreenView(
     navController: NavController,
     viewModel: HomeScreenViewModel = hiltViewModel()
 ) {
-    val loadingState by viewModel.loadingState.collectAsStateWithLifecycle()
     val language by viewModel.language.collectAsStateWithLifecycle()
     val lessons by viewModel.lessons.collectAsStateWithLifecycle()
 

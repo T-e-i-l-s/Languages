@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.mustafin.languages.core.ui.customComponents.buttons.CustomButton
 import com.mustafin.languages.core.utils.lessonUtils.InformationUnitModel
 
-/* View ступени урока с информацией */
+/* View юнита урока с информацией */
 @Composable
 fun LessonInformationUnitView(content: InformationUnitModel, onButtonClick: () -> Unit) {
     Column(
