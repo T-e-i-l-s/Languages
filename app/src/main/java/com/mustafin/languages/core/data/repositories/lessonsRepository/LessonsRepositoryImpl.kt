@@ -1,8 +1,8 @@
-package com.mustafin.languages.mainFlow.data.repositories.lessonsRepository
+package com.mustafin.languages.core.data.repositories.lessonsRepository
 
 import com.mustafin.languages.core.utils.lessonUtils.LessonModel
 import com.mustafin.languages.core.utils.lessonUtils.ShortLessonModel
-import com.mustafin.languages.mainFlow.data.source.local.lessonsSource.LessonsSource
+import com.mustafin.languages.core.data.source.local.lessonsSource.LessonsSource
 import javax.inject.Inject
 
 /* Репозиторий для работы с информацией об уроках */
@@ -13,7 +13,7 @@ class LessonsRepositoryImpl @Inject constructor(
         return lessonsSource.getLessonsByLanguageId(languageId)
     }
 
-    override fun getLessonById(lessonId: Int): LessonModel {
-        TODO("Not yet implemented")
+    override fun setLessonDone(lessonId: Int) {
+        lessonsSource.setLessonDone(lessonId)
     }
 }

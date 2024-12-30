@@ -3,12 +3,12 @@ package com.mustafin.languages.mainFlow.di
 import android.content.SharedPreferences
 import com.mustafin.languages.mainFlow.data.repositories.languagesRepository.LanguagesRepository
 import com.mustafin.languages.mainFlow.data.repositories.languagesRepository.LanguagesRepositoryImpl
-import com.mustafin.languages.mainFlow.data.repositories.lessonsRepository.LessonsRepository
-import com.mustafin.languages.mainFlow.data.repositories.lessonsRepository.LessonsRepositoryImpl
+import com.mustafin.languages.core.data.repositories.lessonsRepository.LessonsRepository
+import com.mustafin.languages.core.data.repositories.lessonsRepository.LessonsRepositoryImpl
 import com.mustafin.languages.mainFlow.data.repositories.sessionInfoRepository.SessionInfoRepository
 import com.mustafin.languages.mainFlow.data.repositories.sessionInfoRepository.SessionInfoRepositoryImpl
 import com.mustafin.languages.mainFlow.data.source.local.languagesSource.LanguagesSource
-import com.mustafin.languages.mainFlow.data.source.local.lessonsSource.LessonsSource
+import com.mustafin.languages.core.data.source.local.lessonsSource.LessonsSource
 import com.mustafin.languages.mainFlow.data.source.local.sessionsInfoPrefs.SessionInfoPrefs
 import dagger.Module
 import dagger.Provides
@@ -30,11 +30,6 @@ object MainFlowModule {
     fun provideLanguagesSource(): LanguagesSource {
         return LanguagesSource()
     }
-    @Provides
-    @Singleton
-    fun provideLessonsSource(): LessonsSource {
-        return LessonsSource()
-    }
 
 
     // Repositories
@@ -47,10 +42,5 @@ object MainFlowModule {
     @Singleton
     fun provideLanguagesRepository(languagesSource: LanguagesSource): LanguagesRepository {
         return LanguagesRepositoryImpl(languagesSource)
-    }
-    @Provides
-    @Singleton
-    fun provideLessonsRepository(lessonsSource: LessonsSource): LessonsRepository {
-        return LessonsRepositoryImpl(lessonsSource)
     }
 }

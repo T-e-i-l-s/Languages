@@ -3,6 +3,7 @@ package com.mustafin.languages.lessonFlow.ui.screens.lessonScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.mustafin.languages.core.data.repositories.lessonsRepository.LessonsRepository
 import com.mustafin.languages.core.ui.navigation.LessonCompletedScreen
 import com.mustafin.languages.core.utils.lessonUtils.LessonModel
 import com.mustafin.languages.core.utils.quizUtils.AnswerStatus
@@ -17,7 +18,8 @@ import javax.inject.Inject
 /* Вью модель экрана прохождения урока */
 @HiltViewModel
 class LessonScreenViewModel @Inject constructor(
-    private val lessonContentRepository: LessonContentRepository
+    private val lessonContentRepository: LessonContentRepository,
+    private val lessonsRepository: LessonsRepository
 ) : ViewModel() {
     companion object {
         const val DELAY_BETWEEN_UNITS = 600L
@@ -52,6 +54,7 @@ class LessonScreenViewModel @Inject constructor(
                     _contentVisible.value = true // Показываем новый юнит
                 } else {
                     navController.navigate(LessonCompletedScreen)
+                    lessonsRepository.setLessonDone(lesson.id)
                 }
             }
         }

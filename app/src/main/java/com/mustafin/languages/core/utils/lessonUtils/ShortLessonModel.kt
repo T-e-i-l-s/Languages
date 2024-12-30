@@ -4,5 +4,5 @@ package com.mustafin.languages.core.utils.lessonUtils
 data class ShortLessonModel(
     val id: Int,
     val name: String,
-    val done: Boolean
+    var done: Boolean = false
 )

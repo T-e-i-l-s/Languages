@@ -3,7 +3,7 @@ package com.mustafin.languages.mainFlow.ui.screens.homeScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafin.languages.core.utils.lessonUtils.ShortLessonModel
-import com.mustafin.languages.mainFlow.data.repositories.lessonsRepository.LessonsRepository
+import com.mustafin.languages.core.data.repositories.lessonsRepository.LessonsRepository
 import com.mustafin.languages.mainFlow.data.repositories.sessionInfoRepository.SessionInfoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
