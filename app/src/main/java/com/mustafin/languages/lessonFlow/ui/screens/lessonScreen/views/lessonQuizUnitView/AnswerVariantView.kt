@@ -10,6 +10,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -18,27 +21,39 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.mustafin.languages.R
-import com.mustafin.languages.core.utils.quizUtils.AnswerStatus
+import com.mustafin.languages.core.utils.quizUtils.AnswerVariantViewStatus
 
 /* View кнопки с вариантом ответа */
 @Composable
-fun AnswerVariantView(text: String, status: AnswerStatus, onClick: () -> Unit) {
+fun AnswerVariantView(
+    text: String,
+    status: AnswerVariantViewStatus,
+    onClick: () -> Unit
+) {
+    // Настраиваем отображение границы кнопки
+    val greenColor = colorResource(id = R.color.green)
+    val redColor = colorResource(id = R.color.red)
+    val borderColor by remember(status) {
+        mutableStateOf(
+            when (status) {
+                AnswerVariantViewStatus.CORRECT -> greenColor
+                AnswerVariantViewStatus.INCORRECT -> redColor
+                else -> Color.Transparent
+            }
+        )
+    }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
-            .clickable(onClick = onClick)
-            .background(colorResource(id = R.color.secondary_background))
-            .border(
-                2.dp,
-                when (status) {
-                    AnswerStatus.CORRECT -> colorResource(id = R.color.green)
-                    AnswerStatus.INCORRECT -> colorResource(id = R.color.red)
-                    else -> Color.Transparent
-                },
-                RoundedCornerShape(12.dp)
+            .clickable(
+                enabled = status == AnswerVariantViewStatus.DEFAULT_UNCHECKED,
+                onClick = onClick
             )
-            .alpha(if (status == AnswerStatus.DEFAULT_CHECKED) 0.5f else 1f)
+            .background(colorResource(id = R.color.secondary_background))
+            .border(2.dp, borderColor, RoundedCornerShape(12.dp))
+            .alpha(1f)
             .padding(24.dp),
     ) {
         Text(

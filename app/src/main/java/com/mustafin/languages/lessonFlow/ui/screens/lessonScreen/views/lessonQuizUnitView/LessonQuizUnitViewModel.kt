@@ -9,7 +9,12 @@ class LessonQuizUnitViewModel: ViewModel() {
     private val _selectedAnswerIndex = MutableStateFlow<Int?>(null)
     val selectedAnswerIndex: StateFlow<Int?> = _selectedAnswerIndex
 
-    fun selectAnswer(index: Int?) {
-        _selectedAnswerIndex.value = index
+    fun resetState() {
+        _selectedAnswerIndex.value = null
+    }
+
+    fun onSelectAnswerClick(selectedIndex: Int?) {
+        if (selectedAnswerIndex.value != null) return
+        _selectedAnswerIndex.value = selectedIndex
     }
 }

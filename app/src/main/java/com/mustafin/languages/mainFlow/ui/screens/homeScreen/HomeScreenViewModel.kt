@@ -21,9 +21,6 @@ class HomeScreenViewModel @Inject constructor(
     private val languagesRepository: LanguagesRepository,
     private val lessonsRepository: LessonsRepository
 ) : ViewModel() {
-    private val _loadingState = MutableStateFlow(LoadingState.LOADING)
-    val loadingState: StateFlow<LoadingState> = _loadingState
-
     private val _languageId = MutableStateFlow<Int?>(null)
     private val _language = MutableStateFlow<ShortLanguageModel?>(null)
     val language: StateFlow<ShortLanguageModel?> = _language
@@ -38,15 +35,12 @@ class HomeScreenViewModel @Inject constructor(
             _languageId.value = sessionInfo.languageId
 
             val currentLanguageId = requireNotNull(sessionInfo.languageId) {
-                _loadingState.value = LoadingState.ERROR
                 return@launch
             }
 
             // Загружаем основной контент
             _language.value = languagesRepository.getLanguageById(currentLanguageId)
             _lessons.value = lessonsRepository.getLessonsByLanguageId(currentLanguageId)
-
-            _loadingState.value = LoadingState.LOADED
         }
     }
 }
