@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -15,23 +16,32 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 /* View с выпадающим списком для выбора языка */
 @Composable
 fun LanguageSelectorView(
-    selectedLanguageIndex: Int,
+    selectedLanguageId: Int,
     onSelectLanguage: (Int) -> Unit, // В лямбду передается индекс языка
     viewModel: LanguageSelectorViewModel = hiltViewModel()
 ) {
-    val languages =
-        viewModel.languages.collectAsStateWithLifecycle()
-    val selectedLanguage =
-        viewModel.selectedLanguage.collectAsStateWithLifecycle()
+    val languages = viewModel.languages.collectAsStateWithLifecycle()
+    val selectedLanguage = viewModel.selectedLanguage.collectAsStateWithLifecycle()
+
+    val listState = rememberLazyListState()
 
     LaunchedEffect(Unit) {
-        viewModel.selectLanguage(selectedLanguageIndex)
+        viewModel.selectLanguage(selectedLanguageId)
+    }
+
+    LaunchedEffect(selectedLanguage.value) {
+        selectedLanguage.value?.let { selected ->
+            val selectedIndex = languages.value?.indexOfFirst { it.id == selected.id }
+            println(selectedIndex)
+            listState.animateScrollToItem(selectedIndex ?: 0)
+        }
     }
 
     languages.value?.let {
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            state = listState
         ) {
             items(it) { lang ->
                 LanguageView(
@@ -52,7 +62,7 @@ fun LanguageSelectorView(
 @Composable
 private fun LanguageViewPreview() {
     LanguageSelectorView(
-        selectedLanguageIndex = 0,
+        selectedLanguageId = 0,
         onSelectLanguage = {}
     )
 }

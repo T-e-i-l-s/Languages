@@ -29,7 +29,7 @@ fun HomeScreenView(
     navController: NavController,
     viewModel: HomeScreenViewModel = hiltViewModel()
 ) {
-    val language by viewModel.language.collectAsStateWithLifecycle()
+    val selectedLanguageId by viewModel.selectedLanguageId.collectAsStateWithLifecycle()
     val lessons by viewModel.lessons.collectAsStateWithLifecycle()
 
     LazyColumn(
@@ -43,14 +43,17 @@ fun HomeScreenView(
         item {
             Spacer(modifier = Modifier.statusBarsPadding())
 
-            language?.let { lang ->
-                LanguageSelectorView(lang.id, {})
+            selectedLanguageId?.let { langId ->
+                LanguageSelectorView(
+                    selectedLanguageId = langId,
+                    onSelectLanguage = viewModel::updateSessionLanguage
+                )
             }
         }
 
         items(lessons) { lesson ->
-            LessonView(lesson = lesson) {
-                lessonId -> navController.navigate(LessonScreen(lessonId))
+            LessonView(lesson = lesson) { lessonId ->
+                navController.navigate(LessonScreen(lessonId))
             }
         }
 

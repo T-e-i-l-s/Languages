@@ -17,29 +17,32 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
     private val sessionInfoRepository: SessionInfoRepository,
-    private val languagesRepository: LanguagesRepository,
     private val lessonsRepository: LessonsRepository
 ) : ViewModel() {
-    private val _languageId = MutableStateFlow<Int?>(null)
-    private val _language = MutableStateFlow<ShortLanguageModel?>(null)
-    val language: StateFlow<ShortLanguageModel?> = _language
+    private val _selectedLanguageId = MutableStateFlow<Int?>(null)
+    val selectedLanguageId: StateFlow<Int?> = _selectedLanguageId
 
     private val _lessons = MutableStateFlow(emptyList<ShortLessonModel>())
     val lessons: StateFlow<List<ShortLessonModel>> = _lessons
 
     init {
         viewModelScope.launch {
-            // Получаем информацию о последней сессии пользователя
-            val sessionInfo = sessionInfoRepository.getSessionInfo()
-            _languageId.value = sessionInfo.languageId
+            _selectedLanguageId.value = sessionInfoRepository.getSessionLanguage()
+            loadLessons()
+        }
+    }
 
-            val currentLanguageId = requireNotNull(sessionInfo.languageId) {
-                return@launch
-            }
+    fun updateSessionLanguage(languageId: Int) {
+        viewModelScope.launch {
+            sessionInfoRepository.setSessionLanguage(languageId)
+            _selectedLanguageId.value = languageId
+            loadLessons()
+        }
+    }
 
-            // Загружаем основной контент
-            _language.value = languagesRepository.getLanguageById(currentLanguageId)
-            _lessons.value = lessonsRepository.getLessonsByLanguageId(currentLanguageId)
+    private fun loadLessons() {
+        _selectedLanguageId.value?.let {
+            _lessons.value = lessonsRepository.getLessonsByLanguageId(it)
         }
     }
 }

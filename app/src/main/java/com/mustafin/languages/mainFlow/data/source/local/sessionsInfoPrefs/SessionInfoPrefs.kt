@@ -17,11 +17,11 @@ class SessionInfoPrefs @Inject constructor(
         get() = sharedPrefs.getInt(LANGUAGE_KEY, 0)
         set(value) = sharedPrefs.edit { putInt(LANGUAGE_KEY, value) }
 
-    fun getSessionInfo(): SessionInfo {
-        return SessionInfo(languageId)
+    fun getSessionLanguage(): Int {
+        return languageId
     }
 
-    fun setSessionInfo(sessionInfo: SessionInfo) {
-        languageId = sessionInfo.languageId
+    fun setSessionLanguage(newLanguageId: Int) {
+        languageId = newLanguageId
     }
 }

@@ -25,6 +25,21 @@ class LessonsSource {
                     false
                 )
             )
+        ),
+        LanguageModel(
+            1,
+            listOf(
+                ShortLessonModel(
+                    0,
+                    "Блок 1. Татарский язык.",
+                    true
+                ),
+                ShortLessonModel(
+                    0,
+                    "Блок 1. Знакомство.",
+                    false
+                )
+            )
         )
     )
 

@@ -7,11 +7,11 @@ import javax.inject.Inject
 class SessionInfoRepositoryImpl @Inject constructor(
     private val sessionInfoPrefs: SessionInfoPrefs
 ): SessionInfoRepository {
-    override fun getSessionInfo(): SessionInfo {
-        return sessionInfoPrefs.getSessionInfo()
+    override fun getSessionLanguage(): Int {
+        return sessionInfoPrefs.getSessionLanguage()
     }
 
-    override fun setSessionInfo(sessionInfo: SessionInfo) {
-        sessionInfoPrefs.setSessionInfo(sessionInfo)
+    override fun setSessionLanguage(languageId: Int) {
+        sessionInfoPrefs.setSessionLanguage(languageId)
     }
 }
