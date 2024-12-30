@@ -1,6 +1,5 @@
 package com.mustafin.languages.lessonFlow.ui.screens.lessonScreen.views
 
-import android.widget.Space
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

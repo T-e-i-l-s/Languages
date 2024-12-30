@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.mustafin.languages.core.ui.navigation.LessonCompletedScreen
 import com.mustafin.languages.core.utils.lessonUtils.LessonModel
-import com.mustafin.languages.core.utils.lessonUtils.LessonUnitType
 import com.mustafin.languages.core.utils.quizUtils.AnswerStatus
 import com.mustafin.languages.lessonFlow.data.repositories.lessonContentRepository.LessonContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

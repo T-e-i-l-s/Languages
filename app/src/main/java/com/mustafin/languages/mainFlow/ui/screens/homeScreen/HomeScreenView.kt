@@ -21,7 +21,7 @@ import androidx.navigation.NavController
 import com.mustafin.languages.R
 import com.mustafin.languages.core.ui.navigation.LessonScreen
 import com.mustafin.languages.mainFlow.ui.screens.homeScreen.views.LessonView
-import com.mustafin.languages.mainFlow.ui.screens.homeScreen.views.header.HomeScreenHeader
+import com.mustafin.languages.mainFlow.ui.screens.homeScreen.views.languageSelector.LanguageSelectorView
 
 /* Главный экран приложения */
 @Composable
@@ -44,7 +44,7 @@ fun HomeScreenView(
             Spacer(modifier = Modifier.statusBarsPadding())
 
             language?.let { lang ->
-                HomeScreenHeader(language = lang)
+                LanguageSelectorView(lang.id, {})
             }
         }
 

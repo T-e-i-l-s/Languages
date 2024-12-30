@@ -2,7 +2,6 @@ package com.mustafin.languages.mainFlow.ui.screens.homeScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mustafin.languages.core.utils.LoadingState
 import com.mustafin.languages.core.utils.languageUtils.ShortLanguageModel
 import com.mustafin.languages.core.utils.lessonUtils.ShortLessonModel
 import com.mustafin.languages.mainFlow.data.repositories.languagesRepository.LanguagesRepository
