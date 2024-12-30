@@ -8,13 +8,18 @@ class LanguagesSource {
     private val languages = listOf(
         ShortLanguageModel(
             0,
-            "Русский",
-            R.drawable.russian
+            "Татарский",
+            R.drawable.tatar
         ),
         ShortLanguageModel(
             1,
-            "Татарский",
-            R.drawable.tatar
+            "Адыгейский",
+            R.drawable.adygea
+        ),
+        ShortLanguageModel(
+            2,
+            "Удмуртский",
+            R.drawable.udmurt
         )
     )
 

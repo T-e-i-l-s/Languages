@@ -11,36 +11,56 @@ class LessonsSource {
             listOf(
                 ShortLessonModel(
                     0,
-                    "Блок 1. Введение.",
+                    "Введение",
                     true
                 ),
                 ShortLessonModel(
-                    0,
-                    "Блок 1. Реальные примеры.",
+                    1,
+                    "Приветствие",
                     false
                 ),
                 ShortLessonModel(
-                    0,
-                    "Блок 1. Проверь себя.",
+                    2,
+                    "Структура предложения",
                     false
-                )
+                ),
+                ShortLessonModel(
+                    3,
+                    "Диалог",
+                    false
+                ),
+                ShortLessonModel(
+                    4,
+                    "Действие",
+                    false
+                ),
+                ShortLessonModel(
+                    5,
+                    "Культура Татарстана",
+                    false
+                ),
             )
         ),
         LanguageModel(
             1,
             listOf(
                 ShortLessonModel(
-                    0,
-                    "Блок 1. Татарский язык.",
+                    6,
+                    "Блок 1",
                     true
-                ),
-                ShortLessonModel(
-                    0,
-                    "Блок 1. Знакомство.",
-                    false
                 )
             )
-        )
+        ),
+        LanguageModel(
+            2,
+            listOf(
+                ShortLessonModel(
+                    7,
+                    "Блок 1",
+                    true
+                )
+            )
+        ),
     )
 
     fun getLessonsByLanguageId(requiredLanguageId: Int): List<ShortLessonModel> {
